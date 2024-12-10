@@ -109,12 +109,16 @@
                 display: inline-block;
             }
 
-            @media screen {
-                
+            @media only screen and (max-width: 600px) {
+                .lastUpdateTime {
+                    display: none;
+                }
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://momentjs.com/downloads/moment.js"></script>
+
         <script>
             const cardTemplate = 
             ` <div class="row">
@@ -123,7 +127,7 @@
                             <div class="card-body">
                                 <img class="float-right"  src="./img/icon/shortlist.svg" height="23" width="23">
                                 <div class="row">
-                                    <div class="col"><h5 class="card-title">{{Facility}}</h5></div> 
+                                    <div class="col"><h5 class="card-title" style="color:#1D4ED8">{{Facility}}</h5></div> 
                                 </div>
                                 <div class="row">
                                     <div class ="col-sm align-self-center" style="margin-right: 5px;">
@@ -137,7 +141,7 @@
                                             <div class="col-1 align-self-center"><img src="./img/icon/status.svg" height="30" width="30"></div>
                                             <div class="col-9 align-self-center">
                                                 <ul style="list-style-type: none; margin: 0; padding: 0;">
-                                                    <li>Last Update Time</li>
+                                                    <li class = 'lastUpdateTime'>Last Update Time</li>
                                                     <li>{{UpdateTime}}</li>
                                                 </ul>
                                             </div>
@@ -159,7 +163,7 @@
                     let element = cardTemplate;
                     element = element.replace("{{Facility}}",facility.properties.Facility_Name);
                     element = element.replace("{{Address}}",facility.properties.Address);
-                    element = element.replace("{{UpdateTime}}",facility.properties.Last_Updated_Date___最後更新日期);
+                    element = element.replace("{{UpdateTime}}",moment(facility.properties.Last_Updated_Date___最後更新日期).format("YYYY-MM-DD"));
 
                     $("#result").append(element);
                 } );
